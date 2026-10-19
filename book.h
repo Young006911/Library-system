@@ -6,8 +6,8 @@ using namespace std;
 
 class Item{
 protected:
-    string id;     
-    string name;    
+    string id;
+    string name;
     string author;
     bool isBorrowed;
 public:
@@ -32,5 +32,4 @@ public:
         Item::showInfo();
     }
 };
-
 #endif
