@@ -1,29 +1,36 @@
-#pragma once
+#ifndef BOOK_H
+#define BOOK_H
 #include <iostream>
 #include <string>
 using namespace std;
 
-class Book {
-private:
-    string isbn;          // 图书ISBN
-    string title;         // 书名
-    string author;        // 作者
-    string publisher;     // 出版社
-    bool isBorrowed;      // 在馆状态
-
+class Item{
+protected:
+    string id;     
+    string name;    
+    string author;
+    bool isBorrowed;
 public:
-    // 构造函数
-    Book(string isbn, string title, string author, string publisher);
-    
-    // 析构函数
-    ~Book();
-
-    // 基本操作：获取信息
-    void showInfo() const;
-    string getIsbn() const { return isbn; }
-    bool getBorrowStatus() const { return isBorrowed; }
-
-    // 业务操作：借书、还书
-    void borrowBook();
-    void returnBook();
+    Item(string i="",string n="",string a=""):id(i),name(n),author(a),isBorrowed(false){}
+    virtual void showInfo() const{
+        cout<<"编号："<<id<<" 书名："<<name<<" 作者："<<author;
+        if(isBorrowed) cout<<" 【已借出】";
+        else cout<<" 【可借阅】";
+        cout<<endl;
+    }
+    string getId() const{return id;}
+    bool getStatus() const{return isBorrowed;}
+    void borrowBook(){isBorrowed = true;}
+    void returnBook(){isBorrowed = false;}
 };
+
+class Book : public Item{
+public:
+    Book(string i="",string n="",string a=""):Item(i,n,a){}
+    void showInfo() const override{
+        cout<<"图书 ";
+        Item::showInfo();
+    }
+};
+
+#endif
